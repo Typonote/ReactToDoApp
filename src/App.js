@@ -1,9 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import TodoTemplate from './components/TodoTemplate';
+import TodoInsert from './components/TodoInsert';
 
 function App() {
-  return <TodoTemplate>ToDo App 만들기!</TodoTemplate>;
+  return (
+    <TodoTemplate>
+      <TodoInsert />
+    </TodoTemplate>
+  );
 }
 
 export default App;
