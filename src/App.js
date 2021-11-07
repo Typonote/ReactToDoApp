@@ -2,7 +2,7 @@ import './App.css';
 import TodoTemplate from './components/TodoTemplate';
 import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 function App() {
   const [todos, setTodos] = useState([
@@ -23,9 +23,25 @@ function App() {
     },
   ]);
 
+  // id 값은 렌더링 되는 정보가 아니기 때문에, useRef사용
+  const nextId = useRef(4);
+
+  const OnInsertHandler = useCallback(
+    (text) => {
+      const todo = {
+        id: nextId.current,
+        text,
+        checked: false,
+      };
+      setTodos(todos.concat(todo));
+      nextId.current += 1; // nextId 1 씩 더하기
+    },
+    [todos],
+  );
+
   return (
     <TodoTemplate>
-      <TodoInsert />
+      <TodoInsert onInsert={OnInsertHandler} />
       <TodoList todos={todos} />
     </TodoTemplate>
   );
