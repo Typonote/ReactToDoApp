@@ -1,12 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
+import TodoTemplate from './components/TodoTemplate';
 
 function App() {
-  return (
-    <div className="App">
-      <p>ToDo App 만들기!</p>
-    </div>
-  );
+  return <TodoTemplate>ToDo App 만들기!</TodoTemplate>;
 }
 
 export default App;
