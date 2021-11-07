@@ -43,10 +43,25 @@ function App() {
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
   }, []);
 
+  const OnToggleHandler = useCallback(
+    (id) => {
+      setTodos(
+        todos.map((todo) =>
+          todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+        ),
+      );
+    },
+    [todos],
+  );
+
   return (
     <TodoTemplate>
       <TodoInsert onInsert={OnInsertHandler} />
-      <TodoList todos={todos} onRemove={OnRemoveHandler} />
+      <TodoList
+        todos={todos}
+        onRemove={OnRemoveHandler}
+        onToggle={OnToggleHandler}
+      />
     </TodoTemplate>
   );
 }
