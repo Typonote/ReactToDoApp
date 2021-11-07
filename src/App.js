@@ -39,10 +39,14 @@ function App() {
     [todos],
   );
 
+  const OnRemoveHandler = useCallback((id) => {
+    setTodos((todos) => todos.filter((todo) => todo.id !== id));
+  }, []);
+
   return (
     <TodoTemplate>
       <TodoInsert onInsert={OnInsertHandler} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} onRemove={OnRemoveHandler} />
     </TodoTemplate>
   );
 }
