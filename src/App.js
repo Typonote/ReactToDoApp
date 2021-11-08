@@ -28,37 +28,32 @@ function createBulkTodos() {
 function App() {
   const [todos, setTodos] = useState(createBulkTodos);
   //createBulkTodos()가 아닌 createBulkTodos 형태로 넣어주면, 컴포넌트가 처음 렌더링 될때만 함수가 실행한다.
+  //useState의 함수화를 진행하면 성능 향상을 얻을 수 있다. => 상태를 파라미터에 넣은 것이 아니라, 상태를 알려주는 함수를 파라미터에 적용한다.
 
   // id 값은 렌더링 되는 정보가 아니기 때문에, useRef사용
   const nextId = useRef(2501);
 
-  const OnInsertHandler = useCallback(
-    (text) => {
-      const todo = {
-        id: nextId.current,
-        text,
-        checked: false,
-      };
-      setTodos(todos.concat(todo));
-      nextId.current += 1; // nextId 1 씩 더하기
-    },
-    [todos],
-  );
+  const OnInsertHandler = useCallback((text) => {
+    const todo = {
+      id: nextId.current,
+      text,
+      checked: false,
+    };
+    setTodos((todos) => todos.concat(todo));
+    nextId.current += 1; // nextId 1 씩 더하기
+  }, []);
 
   const OnRemoveHandler = useCallback((id) => {
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
   }, []);
 
-  const OnToggleHandler = useCallback(
-    (id) => {
-      setTodos(
-        todos.map((todo) =>
-          todo.id === id ? { ...todo, checked: !todo.checked } : todo,
-        ),
-      );
-    },
-    [todos],
-  );
+  const OnToggleHandler = useCallback((id) => {
+    setTodos((todos) =>
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+      ),
+    );
+  }, []);
 
   return (
     <TodoTemplate>
