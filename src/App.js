@@ -4,27 +4,31 @@ import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
 import { useCallback, useRef, useState } from 'react';
 
-function App() {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: '겉옷 빨래하기',
-      checked: true,
-    },
-    {
-      id: 2,
-      text: '책상 정리',
-      checked: true,
-    },
-    {
-      id: 3,
-      text: '부모님 안부전화 드리기',
+// 할일 2500개 생성 => 느려진 것을 체감할 수 있다.
+// 느려지는 원인
+// 1. 자신이 전달받은 props가 변경될 때.
+// 2. 자신의 state가 바뀔 때.
+// 3. 부모 컴포넌트가 리렌더링 될 때.
+// 4. forUpdate 함수가 실행될 때.
+// 체크 가 발생한 부분만 리렌더링 되어야 하지만, 2500개 모두 리렌더링되고 있음.
+function createBulkTodos() {
+  const array = [];
+  for (let i = 1; i <= 2500; i++) {
+    array.push({
+      id: i,
+      text: `할 일 ${i}`,
       checked: false,
-    },
-  ]);
+    });
+  }
+  return array;
+}
+
+function App() {
+  const [todos, setTodos] = useState(createBulkTodos);
+  //createBulkTodos()가 아닌 createBulkTodos 형태로 넣어주면, 컴포넌트가 처음 렌더링 될때만 함수가 실행한다.
 
   // id 값은 렌더링 되는 정보가 아니기 때문에, useRef사용
-  const nextId = useRef(4);
+  const nextId = useRef(2501);
 
   const OnInsertHandler = useCallback(
     (text) => {
