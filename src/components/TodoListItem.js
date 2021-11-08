@@ -25,4 +25,5 @@ const TodoListItem = ({ todo, onRemove, onToggle }) => {
   );
 };
 
-export default TodoListItem;
+// 함수형 컴포넌트에서는 React.memo를 통해 리렌더링 최적화를 할 수 있다.
+export default React.memo(TodoListItem);

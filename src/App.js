@@ -11,6 +11,8 @@ import { useCallback, useRef, useState } from 'react';
 // 3. 부모 컴포넌트가 리렌더링 될 때.
 // 4. forUpdate 함수가 실행될 때.
 // 체크 가 발생한 부분만 리렌더링 되어야 하지만, 2500개 모두 리렌더링되고 있음.
+
+// 함수형 컴포넌트에서는 React.memo를 통해 리렌더링 최적화를 할 수 있다.
 function createBulkTodos() {
   const array = [];
   for (let i = 1; i <= 2500; i++) {
