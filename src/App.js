@@ -3,6 +3,8 @@ import TodoTemplate from './components/TodoTemplate';
 import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
 import { useCallback, useRef, useState } from 'react';
+import MemberList from './components/Member';
+import Member from './components/Member';
 
 // 할일 2500개 생성 => 느려진 것을 체감할 수 있다.
 // 느려지는 원인
@@ -56,14 +58,17 @@ function App() {
   }, []);
 
   return (
-    <TodoTemplate>
-      <TodoInsert onInsert={OnInsertHandler} />
-      <TodoList
-        todos={todos}
-        onRemove={OnRemoveHandler}
-        onToggle={OnToggleHandler}
-      />
-    </TodoTemplate>
+    <>
+      {/* <TodoTemplate>
+        <TodoInsert onInsert={OnInsertHandler} />
+        <TodoList
+          todos={todos}
+          onRemove={OnRemoveHandler}
+          onToggle={OnToggleHandler}
+        />
+      </TodoTemplate> */}
+      <Member />
+    </>
   );
 }
 

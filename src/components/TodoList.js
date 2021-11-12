@@ -19,4 +19,5 @@ const TodoList = ({ todos, onRemove, onToggle }) => {
   );
 };
 
-export default TodoList;
+// 리스트 내부에서 사용하는 컴포턴트도 최적화 하는 것이 좋다.
+export default React.memo(TodoList);
